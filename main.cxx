@@ -2,6 +2,7 @@
 #include <fstream>
 #include <cstdlib>
 #include <cstring>
+#include <math.h>
 #include "Grafo.h"
 
 using namespace std;
@@ -11,13 +12,18 @@ void carregarArquivo(char * nome_arquivo, Grafo * b){ //resolvido!!!
 
 	fstream arquivo(nome_arquivo);
 	
+	string tamanho;
+	
 	if(arquivo.is_open()){
-
-		
+		getline(arquivo,tamanho);
+		b->setNum_no(atoi(tamanho.c_str()));
 		arquivo.close();
 	}
 	else{
-		
+		string sair;
+		cout<<"ERRO, AQUIVO NÃO ENCONTRADO!"<<endl;
+		cin>>sair;
+		exit(1);
 	}
 
 }
@@ -46,7 +52,7 @@ char menu(){
 	cout<<" 5- Calcular resultado do problema escolhido"<<endl; //calcula o resultado do problema que escolhemos
 	cout<<" 6- Info"<<endl; // mostra informações sobre o grafo (grau, quantidade de arestas e no, se é nulo ou não)  
 	cout<<" 7- Deletar grafo"<<endl;
-	cout<<" 8- Salvar grafo"<<endl; //salva no arquivo de saida
+	cout<<" 8- Salvar grafo"<<endl; //salva no arquivo de saida       
 	cout<<" 0- Sair"<<endl;
 	cout<<endl;
 	cout<<"Digite a opção desejada: ";
@@ -88,6 +94,7 @@ int main(int arg, char **argv)
 				
 				cout<<"O Grafo é nulo: "<< a.ehNulo() <<endl;
 				cout<<"Seu grau é: "<< a.getMaior_grau() <<endl;
+				cout<<"Numero de nós: "<< a.getNum_no()<<endl;
 				cout<<"Numero de arestas: "<< a.getNum_arestas() <<endl;
 				
 				cout<<endl<<"Pressione 9 para voltar ao menu ..."<<endl;
