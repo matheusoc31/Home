@@ -4,6 +4,9 @@
 Grafo::Grafo(int tam){
 	
 	primeiro = NULL;
+	maior_grau = NULL;
+	num_nos = tam;
+	num_aresta = 0;
 	
 }
 
@@ -21,6 +24,7 @@ bool Grafo::procuraNo(int id){
 	}
 	return false;
 }
+
 void Grafo::inserirNo(int id, int peso){
 	
 	if(procuraNo(id)){
@@ -40,6 +44,7 @@ void Grafo::inserirNo(int id, int peso){
 		No * t = new No(id, peso);
 		p->setProx(t);
 	}
+	num_no++;
 }
 
 void Grafo::deletarNo(int id){
@@ -56,14 +61,15 @@ void Grafo::deletarNo(int id){
 	}
 	
 	delete p;
+	num_no--;
 }
 
 void Grafo::inserirAresta(int no_a, int no_b, int peso){
-	
+	//lembrar de mexer com o grau
 }
 
 void Grafo::deletarAresta(int no_a, int no_b){
-	
+	//lembrar de mexer com o grau
 }
 
 bool Grafo::ehNulo(){

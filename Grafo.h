@@ -15,11 +15,10 @@ class Grafo {
 		
 		bool procuraNo();
 		bool ehNulo();
-		int getNum_arestas(){ return 0;} //arrumar 
 		int getMaior_grau(){ return maior_grau->getGrau();}
-		
 		void setNum_no(int num){ num_no = num;}
 		int getNum_no(){ return num_no;}
+		int getNum_arestas(){ return num_arestas;} 
 		
 		
 	private:
