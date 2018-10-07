@@ -1,0 +1,172 @@
+#include <iostream>
+#include <fstream>
+#include <cstdlib>
+#include <cstring>
+#include <math.h>
+#include "Grafo.h"
+
+using namespace std;
+
+
+Grafo * carregarArquivo(char * nome_arquivo){ //resolvido!!!
+
+	fstream arquivo(nome_arquivo);
+	
+	string tamanho;
+	Grafo * b;
+	
+	if(arquivo.is_open()){
+		getline(arquivo,tamanho);
+		b = new Grafo ();
+		
+		while(!arquivo.eof()){
+			getline(arquivo,tamanho);
+			cout<<tamanho<<endl;
+		}
+		cin>>tamanho;
+		arquivo.close();
+		
+		//verifica se foram lidos a quantidade de nó passada pelo arquivo
+		if(b->getNum_nos() == atoi(tamanho.c_str()))
+			return b;
+		else{
+			cout<<"Erro ao ler arquivo"<<endl;
+			system("pause");
+			exit(1);
+		}
+	}
+	else{
+		string sair;
+		cout<<"ERRO, AQUIVO NÃO ENCONTRADO!"<<endl;
+		cin>>sair;
+		exit(1);
+	}
+
+}
+
+void salvarGrafoArquivo(char * nome_arquivo){
+	
+	return;
+	
+}
+
+char menu(){
+	
+	char num_escolhido = -1;
+	
+	system("tput reset"); //ou clear
+
+	cout<<"TRABALHO DE GRAFOS"<<endl;
+	cout<<"TEMA STEINER COM COLETA DE PRÊMIOS"<<endl;
+	cout<<"UFJF - GRUPO 16"<<endl;
+	cout<<endl;
+	cout<<"Menu: "<<endl;
+	cout<<endl;
+	cout<<" 1- Adicionar nó"<<endl;
+	cout<<" 2- Remover nó"<<endl;
+	cout<<" 3- Adicionar aresta"<<endl;
+	cout<<" 4- Remover aresta"<<endl; 
+	cout<<" 5- Calcular resultado do problema escolhido"<<endl; //calcula o resultado do problema que escolhemos
+	cout<<" 6- Info"<<endl; // mostra informações sobre o grafo (grau, quantidade de arestas e no, se é nulo ou não)  
+	cout<<" 7- Deletar grafo"<<endl; // deleta o grafo e cria um novo de tamanho 0;
+	cout<<" 8- Salvar grafo"<<endl; //salva no arquivo de saida (caso não tenha arquivo de saida salvar em arquivo padrão)   
+	cout<<" 0- Sair"<<endl;
+	cout<<endl;
+	cout<<"Digite a opção desejada: ";
+	cin>>num_escolhido;
+	
+	while(num_escolhido<'0' || num_escolhido>'8'){
+		cout<<"ERRO !!!"<<endl;
+		cout<<"Digite uma opção válida: ";
+		cin>>num_escolhido;
+	}
+	
+	return num_escolhido;
+}
+
+int main(int arg, char **argv)
+{
+	
+	bool fim = 0;
+	Grafo * a;
+	
+	if(arg > 1)
+		a = carregarArquivo(argv[1]);
+	else
+		a = new Grafo();
+	
+	int no;
+	int deletar_no;
+	int penalidade;
+	
+	while(!fim){
+		switch(menu()){
+			
+			case '1': /// Adicionar No
+				
+				no = 0;
+				penalidade = 0;
+				
+				cout<<"Digite o no que deseja inserir: ";
+				cin>> no;
+				
+				bool teste = a->procuraNo(no);
+				
+				if(teste){
+					cout<<"Erro, no já inserido!"<<endl;
+					
+				}
+				else{
+					cout<<"Digite a penalidade do no: ";
+					cin>>penalidade;
+					
+					while(penalidade<0){
+						cout<<"Erro, penalidade inválida!"<<endl;
+						cout<<"Digite a penalidade do no: ";
+						cin>>penalidade;
+					}
+				}
+				a->inserirNo(novo_no, penalidade);
+				
+				break;
+			
+			case '2': /// Remover No
+				
+				deletar_no = 0;
+				
+				cout<<"Digite o no que deseja deletar: ";
+				cin>> deletar_no;
+					
+				bool teste = a->procuraNo(novo_no);
+					
+				if(!teste)
+					cout<<"Erro, no não encontrado!"<<endl;
+				else
+					a->deletarNo(deletar_no);
+				
+				break;
+			
+			case '3': /// Adicionar Aresta
+			 
+				break;
+			
+			case '4': /// Remover Aresta
+			
+				break;
+			
+			case '5': /// Calcula Problema de Steiner com coleta de prêmios
+			
+				break;
+			
+			case '6': /// Info
+				
+				system("tput reset"); // ou clear
+				
+				cout<<"O Grafo é nulo: "<< a->ehNulo() <<endl;
+				cout<<"Numero de nós: "<< a->getNum_nos()<<endl;
+				cout<<"Seu grau é: "<< a->getMaior_grau() <<endl;
+				cout<<"Numero de arestas: "<< a->getNum_arestas() <<endl;
+				
+				cout<<endl<<"Pressione 9 para voltar ao menu ..."<<endl;
+				
+				char voltar;
