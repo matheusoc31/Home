@@ -1,7 +1,8 @@
 #include <iostream>
 #include <fstream>
 #include <cstdlib>
-#include <cstring>
+#include <string.h>
+#include <string>
 #include <math.h>
 #include "Grafo.h"
 
@@ -107,8 +108,8 @@ int main(int arg, char **argv)
 	else
 		a = new Grafo();
 	
-	int no;
-	int penalidade;
+	string no = "0";
+	string penalidade = "0";
 	bool teste;
 	string arquivo;
 	
@@ -117,47 +118,49 @@ int main(int arg, char **argv)
 			
 			case '1': /// Adicionar No
 				
-				no = 0;
-				penalidade = 0;
-				
 				cout<<"Digite o no que deseja inserir: ";
 				cin>> no;
 				
-				teste = a->procuraNo(no);
+				if(stoi(no) != 0){
+									
+					teste = a->procuraNo(stoi(no));
 				
-				if(teste){
-					cout<<"Erro, no já inserido!"<<endl;			
-				}
-				else{
-					cout<<"Digite a penalidade do no: ";
-					cin>>penalidade;
-					
-					while(penalidade<0){
-						cout<<"Erro, penalidade inválida!"<<endl;
+					if(teste){
+						cout<<"Erro, no já inserido!"<<endl;			
+					}
+					else{
 						cout<<"Digite a penalidade do no: ";
 						cin>>penalidade;
-					}
-					if(penalidade>=0)
-						a->inserirNo(no, penalidade);
-				}	
-				
+					
+						while(stoi(penalidade)<0){
+							cout<<"Erro, penalidade inválida!"<<endl;
+							cout<<"Digite a penalidade do no: ";
+							cin>>penalidade;
+						}
+						if(stoi(penalidade)>=0)
+							a->inserirNo(stoi(no), stoi(penalidade));
+					}	
+				}
+				else
+					cout<<"Erro, valor inválido!"<<endl;
+					
 				break;
 			
 			case '2': /// Remover No
 				
-				no = 0;
+				no = "0";
 				
 				cout<<"Digite o no que deseja deletar: ";
 				cin>> no;
 					
-				teste = a->procuraNo(no);
+				teste = a->procuraNo(stoi(no));
 					
 				if(!teste){
 					cout<<"Erro, no não encontrado!"<<endl;
 					system("pause");
 				}
 				else
-					a->deletarNo(no);
+					a->deletarNo(stoi(no));
 				
 				break;
 			

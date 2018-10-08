@@ -38,7 +38,6 @@ void Grafo::inserirNo(int id, int penalidade){
 	if(p == NULL)
 		primeiro = new No(id, penalidade);
 	else{
-		No * p = primeiro;
 		while(p->getProximo() != NULL){
 			p= p->getProximo();
 		}
@@ -55,12 +54,15 @@ void Grafo::deletarNo(int id){
 		return;
 	}
 	
-	No *p = primeiro;
+	No * p = primeiro;
+	No * t = NULL;
 	
 	while(p->getId() != id){
+		t = p;
 		p = p->getProximo();
 	}
 	
+	t->setProximo(p->getProximo());
 	delete p;
 	num_nos--;
 }
